@@ -10,6 +10,7 @@ public class Driver : MonoBehaviour
     [SerializeField] float boostSpeed = 0.03f;
 
     [SerializeField] float bumpSpeed  = 0.01f;
+    [SerializeField] float normalSpeed = 0.01f;
     float startSpeed;
     
     
