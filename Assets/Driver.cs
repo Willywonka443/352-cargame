@@ -12,7 +12,8 @@ public class Driver : MonoBehaviour
     [SerializeField] float bumpSpeed  = 0.01f;
     [SerializeField] float normalSpeed = 0.01f;
     float startSpeed;
-    
+    bool hasBoost = false;
+    bool hasSlow = false;
     
     // Start is called before the first frame update
     void Start()
@@ -21,16 +22,27 @@ public class Driver : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other) {
       
-       if(other.tag == "Boost"){
+       if(other.tag == "Boost" && !hasSlow){
             Debug.Log("I have my zoomies");
             currentSpeed = boostSpeed;
-            // Destroy(other.gameObject, 0.25f);
+            hasBoost = true;
+       }else if(other.gameObject.tag == "Boost" && hasSlow){
+            currentSpeed = normalSpeed;
+            hasSlow = false;
+           
        }
 
-       if(other.tag == "Bumps"){
+       if(other.gameObject.tag == "Bumps" && !hasBoost){
             Debug.Log("You shall Slow Down");
             currentSpeed = bumpSpeed;
-       }
+            hasSlow = true;
+       }else if(other.gameObject.tag == "Bumps" && hasBoost){
+            Debug.Log("This is normal");
+            currentSpeed = normalSpeed;
+            hasBoost = false;
+            
+       } 
+        
 
     }
     // Update is called once per frame
